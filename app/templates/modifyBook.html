@@ -1,0 +1,9 @@
+<html><body>
+<h1>Books modify</h1>
+{{pk}}
+<form action="/your-name/" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="OK">
+</form>
+</body></html>
