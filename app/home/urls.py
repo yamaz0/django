@@ -1,10 +1,11 @@
 from django.urls import path, include
-from .views import index, modify, create, register
+from .views import index, modify, create, register, map
 from django.contrib.auth.views import LoginView, LogoutView
 htmlpatterns = [
     path('', index, name="index"),
     path('modifyBook.html', modify, name="modify"),
     path('register.html', register, name="register"),
+    path('map.html', map, name="map"),
     path('createBook.html', create, name="create"),
     path('login.html', LoginView.as_view(
             template_name='login.html'

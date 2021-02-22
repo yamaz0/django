@@ -12,6 +12,9 @@ from django.http import JsonResponse
 def index(request):
     return render(request, 'listBook.html')
 
+def map(request):
+    return render(request, 'map.html')
+
 def register(request):
     form = RegisterForm()
     return render(request, 'register.html', {'form': form})

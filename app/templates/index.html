@@ -1,7 +1,11 @@
 {% load static %}
 <html>
 
-<head><title>Django projekt</title></head>
+<head>
+    <title>Django projekt</title>
+    {% block head %}
+    {% endblock %}
+</head>
 <body>
 {% if user.is_authenticated %}
 <button name="logout" onclick = "onLogoutClick()" >Logout</button>
