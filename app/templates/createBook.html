@@ -1,7 +1,7 @@
 {% extends 'index.html' %}
 {% block content %}
 
-<h1>Books modify</h1>
+<h1>Books create</h1>
 
 <a href="http://localhost:8000/">Back</a>
 
@@ -12,7 +12,7 @@
 </form>
 
 <script>
-
+bookCreate()
 function getCookie(name)
 {
     var cookieValue = null;
@@ -29,8 +29,7 @@ function getCookie(name)
     }
     return cookieValue;
 }
-bookUpdate()
-function bookUpdate()
+function bookCreate()
 {
     var csrftoken = getCookie('csrftoken');
     var form = document.getElementById("form")
@@ -39,8 +38,7 @@ function bookUpdate()
         e.preventDefault()
         console.log('form submitted')
 
-        var id = document.getElementsByName("id")[0].value
-        var url = "http://localhost:8000/api/book-update/" + id + ""
+        var url = "http://localhost:8000/api/book-create/"
 
         var title = document.getElementsByName("title")[0].value
         var genre = document.getElementsByName("genre")[0].value
@@ -53,7 +51,7 @@ function bookUpdate()
                   'X-CSRFToken':csrftoken
               },
             body:JSON.stringify({
-              'id':id,
+              'id':'0',
               'title':title,
               'genre':genre,
               'author':author,
@@ -63,8 +61,11 @@ function bookUpdate()
         .then(function(response)
         {
             console.log('Response:', response)
+            window.location.href = "http://localhost:8000"
         })
     })
 }
 </script>
+
+
 {% endblock %}

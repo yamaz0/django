@@ -1,0 +1,85 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<h1>User Books</h1>
+
+<a href="http://localhost:8000">Back</a>
+
+<ul>
+    <div id="data-rows"></div>
+</ul>
+
+<script>
+bookList()
+function bookList()
+{
+    var content = document.getElementById("data-rows")
+    var url = 'http://localhost:8000/api/userBook-list/'
+
+    fetch(url)
+    .then((resp) => resp.json())
+    .then(function(data)
+        {
+            console.log('Data:', data)
+            var item=""
+            for(var book in data)
+            {
+                item += `
+                <form action="/modifyBook.html" method="get">
+                <li>${data[book].title}</li>
+                <li>${data[book].author}</li>
+                <li>${data[book].genre}</li>
+                <li>${data[book].rate}</li>
+
+                <button name="pk" value=${data[book].id}>Modify</button>
+                </form>
+                <button name="pk" onclick = "bookDelete(${data[book].id})" value=${data[book].id}>Delete</button>
+<!--                <button name="pk" value=${data[book].id}>AddToBookcase</button>-->
+                </br></br></br>`
+            }
+            content.innerHTML += item
+        })
+}
+
+function getCookie(name)
+{
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function bookDelete(id)
+{
+    var csrftoken = getCookie('csrftoken');
+    console.log('delete clicked')
+
+    var url = "http://localhost:8000/api/book-delete/" + id + ""
+
+    fetch(url, {
+        method:'POST',
+        headers:{'Content-type':'application/json',
+              'X-CSRFToken':csrftoken
+          }
+     })
+    .then(function(response)
+    {
+        console.log('Response:', response)
+    })
+    location.reload();
+}
+
+
+</script>
+
+
+{% endblock %}

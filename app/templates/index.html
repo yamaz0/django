@@ -1,19 +1,26 @@
-<html><body>
-<h1>Books</h1>
+{% load static %}
+<html>
 
-<form action="/modifyBook.html" method="get">
-<ul>
-    {% for book in books %}
-    <li>{{ book.title }}</li>
-    <li>{{ book.author }}</li>
-    <li>{{ book.genre }}</li>
-    <li>{{ book.rate }}</li>
+<head><title>Django projekt</title></head>
+<body>
+{% if user.is_authenticated %}
+<button name="logout" onclick = "onLogoutClick()" >Logout</button>
+{% else %}
+<button name="login" onclick = "onLoginClick()" >Login</button>
+{% endif %}
+<!--window.location.href = "http://localhost:8000"-->
+{% block content %}
+{% endblock %}
 
-    <button name="pk" type="submit" value={{book.id}}>Modify</button>
-    <button name="pk" type="submit" value={{book.id}}>Delete</button>
-    <button name="pk" type="submit" value={{book.id}}>AddToBookcase</button>
-    </br></br></br>
-    {% endfor %}
-</ul>
-</form>
-</body></html>
+<script>
+    function onLogoutClick()
+    {
+        window.location.href = "http://localhost:8000/logout.html"
+    }
+    function onLoginClick()
+    {
+        window.location.href = "http://localhost:8000/login.html"
+    }
+</script>
+</body>
+</html>

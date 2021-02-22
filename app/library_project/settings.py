@@ -111,7 +111,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+LOGIN_URL = 'account/login/'
+LOGIN_REDIRECT_URL = 'http://localhost:8000/'
+LOGOUT_REDIRECT_URL = 'http://localhost:8000/'
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 

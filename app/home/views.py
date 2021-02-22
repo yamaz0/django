@@ -1,25 +1,25 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .forms import BookCreateForm, BookForm
 import requests
-from .forms import BookForm
+from books.models import Book
 from django.http import HttpResponse
-from books.serializers import BookSerializer
+from django.http import JsonResponse
+# from books.
 # Create your views here.
 
+
+
 def index(request):
-    response = requests.get('http://localhost:8000/api/book-list/')
-    data = response.json()
-    return render(request, 'index.html', {'books': data})
+    return render(request, 'listBook.html')
+
+def create(request):
+    form = BookCreateForm()
+    return render(request, 'createBook.html', {'form': form})
 
 def modify(request):
     id = request.GET.get('pk', '')
     response = requests.get('http://localhost:8000/api/book-detail/{0}'.format(id))
     data = response.json()
-    form = BookForm(data)
+    print(data)
+    form = BookForm(book=data)
     return render(request, 'modifyBook.html', {'form': form})
-
-
-    # interview = Interview.objects.get(pk=interview_pk)
-    # all_rounds = interview.round_set.order_by('created_at')
-    # all_round_names = [rnd.name for rnd in all_rounds]
-    # form = forms.AddRatingForRound(all_round_names)
-    # return render(request, 'add_rating.html', {'form': form, 'interview': interview, 'rounds': all_rounds})

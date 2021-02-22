@@ -10,7 +10,7 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'groups']
+        fields = ['url', 'username', 'email']
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
@@ -29,3 +29,14 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
     def validate_new_password(self, value):
         validate_password(value)
         return value
+
+class RegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email', 'password')
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        user = User.objects.create_user(validated_data['username'], validated_data['email'], validated_data['password'])
+
+        return user

@@ -4,36 +4,49 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
-from books.serializers import BookSerializer, UserBookSerializer, AuthorSerializer
-from books.models import Book, UserBook, Author
+from books.serializers import BookSerializer, UserBookSerializer
+from books.models import Book, UserBook
+from users.serializers import UserSerializer
+from django.contrib.auth.models import User
 # Create your views here.
-# authenication_classes = (
-#     BasicAuthentication,
-#     SessionAuthentication,
-# )
+
+@api_view(['POST'])
+def create_auth(request):
+    serialized = UserSerializer(data=request.DATA)
+    if serialized.is_valid():
+        User.objects.create_user(
+            serialized.init_data['email'],
+            serialized.init_data['username'],
+            serialized.init_data['password']
+        )
+        return Response(serialized.data)
+    else:
+        return Response(serialized._errors)
 
 @api_view(['GET'])
 def apiOverview(request):
     api_urls={
+        'Books list':'/book-list/',
         'Books list':'/book-list/',
         'Book detail':'/book-detail/<str:pk>/',
         'Book create':'/book-create/',
         'Book update':'/book-update/<str:pk>/',
         'Book delete':'/book-delete/<str:pk>/',
 
-        'Author list':'/author-list/',
-        'Author detail':'/author-detail/<str:pk>/',
-        'Author create':'/author-create/',
-        'Author update':'/author-update/<str:pk>/',
-        'Author delete':'/author-delete/<str:pk>/',
+        # 'Author list':'/author-list/',
+        # 'Author detail':'/author-detail/<str:pk>/',
+        # 'Author create':'/author-create/',
+        # 'Author update':'/author-update/<str:pk>/',
+        # 'Author delete':'/author-delete/<str:pk>/',
 
-        'UserBook list':'/userBook-list/<str:id>/<str:pk>',
+        'UserBook list':'/userBook-list/',
         'UserBook detail':'/userBook-detail/<str:pk>/',
         'UserBook create':'/userBook-create/',
         'UserBook update':'/userBook-update/<str:pk>/',
         'UserBook delete':'/userBook-delete/<str:pk>/',
     }
     return Response(api_urls)
+
 
 #Book
 @api_view(['GET'])
@@ -49,11 +62,13 @@ def bookDetail(request,pk):
     return Response(serializer.data)
 
 @api_view(['POST'])
-@authentication_classes([SessionAuthentication, BasicAuthentication])
-@permission_classes([IsAuthenticated])
+# @authentication_classes([SessionAuthentication, BasicAuthentication])
+# @permission_classes([IsAuthenticated])
 def bookCreate(request):
     serializer = BookSerializer(data = request.data)
+    print('aa')
     if serializer.is_valid():
+        print('bbb')
         serializer.save()
     return Response(serializer.data)
 
@@ -72,48 +87,48 @@ def bookUpdate(request, pk):
 @permission_classes([IsAuthenticated])
 def bookDelete(request, pk):
     books = Book.objects.get(id=pk)
-    books.detele()
+    books.delete()
     return Response('Item succsesfully delete!')
 
 #Author
-@api_view(['GET'])
-def authorList(request):
-    author = Author.objects.all()
-    serializer = AuthorSerializer(author,many = True)
-    return Response(serializer.data)
-
-@api_view(['GET'])
-def authorDetail(request,pk):
-    author = Author.objects.get(id=pk)
-    serializer = AuthorSerializer(author, many = False)
-    return Response(serializer.data)
-
-@api_view(['POST'])
-@authentication_classes([SessionAuthentication, BasicAuthentication])
-@permission_classes([IsAuthenticated])
-def authorCreate(request):
-    serializer = AuthorSerializer(data = request.data)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
-
-@api_view(['POST'])
-@authentication_classes([SessionAuthentication, BasicAuthentication])
-@permission_classes([IsAuthenticated])
-def authorUpdate(request, pk):
-    author = Author.objects.get(id=pk)
-    serializer = AuthorSerializer(instance=author, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
-
-@api_view(['POST'])
-@authentication_classes([SessionAuthentication, BasicAuthentication])
-@permission_classes([IsAuthenticated])
-def authorDelete(request, pk):
-    author = Author.objects.get(id=pk)
-    author.detele()
-    return Response('Item succsesfully delete!')
+# @api_view(['GET'])
+# def authorList(request):
+#     author = Author.objects.all()
+#     serializer = AuthorSerializer(author,many = True)
+#     return Response(serializer.data)
+#
+# @api_view(['GET'])
+# def authorDetail(request,pk):
+#     author = Author.objects.get(id=pk)
+#     serializer = AuthorSerializer(author, many = False)
+#     return Response(serializer.data)
+#
+# @api_view(['POST'])
+# @authentication_classes([SessionAuthentication, BasicAuthentication])
+# @permission_classes([IsAuthenticated])
+# def authorCreate(request):
+#     serializer = AuthorSerializer(data = request.data)
+#     if serializer.is_valid():
+#         serializer.save()
+#     return Response(serializer.data)
+#
+# @api_view(['POST'])
+# @authentication_classes([SessionAuthentication, BasicAuthentication])
+# @permission_classes([IsAuthenticated])
+# def authorUpdate(request, pk):
+#     author = Author.objects.get(id=pk)
+#     serializer = AuthorSerializer(instance=author, data=request.data)
+#     if serializer.is_valid():
+#         serializer.save()
+#     return Response(serializer.data)
+#
+# @api_view(['POST'])
+# @authentication_classes([SessionAuthentication, BasicAuthentication])
+# @permission_classes([IsAuthenticated])
+# def authorDelete(request, pk):
+#     author = Author.objects.get(id=pk)
+#     author.detele()
+#     return Response('Item succsesfully delete!')
 
 #UserBook
 @api_view(['GET'])
