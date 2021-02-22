@@ -1,12 +1,13 @@
 from django import forms
 from books.models import Book, UserBook,genreEnum
 from django.contrib.auth.models import User, Group
-import datetime
+from django.contrib.auth.forms import UserCreationForm
 
-class LoginForm(forms.ModelForm):
+class RegisterForm(UserCreationForm):
+    # password2 = forms.CharField(widget=forms.PasswordInput())
     class Meta:
         model = User
-        fields = ['username', 'password']
+        fields = ['username', 'password1', 'password2']
 
 
 class BookCreateForm(forms.ModelForm):

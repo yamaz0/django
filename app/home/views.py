@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import BookCreateForm, BookForm
+from .forms import BookCreateForm, BookForm, RegisterForm
 import requests
 from books.models import Book
 from django.http import HttpResponse
@@ -11,6 +11,10 @@ from django.http import JsonResponse
 
 def index(request):
     return render(request, 'listBook.html')
+
+def register(request):
+    form = RegisterForm()
+    return render(request, 'register.html', {'form': form})
 
 def create(request):
     form = BookCreateForm()

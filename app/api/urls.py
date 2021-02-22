@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.apiOverview, name = "api-overview"),
-    path('register', views.create_auth, name = "create_auth"),
+    path('register/', views.create_auth, name = "create_auth"),
     path('book-list/', views.bookList, name = "book-list"),
     path('book-detail/<str:pk>', views.bookDetail, name = "book-detail"),
     path('book-create/', views.bookCreate, name = "book-create"),

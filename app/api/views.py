@@ -12,16 +12,20 @@ from django.contrib.auth.models import User
 
 @api_view(['POST'])
 def create_auth(request):
-    serialized = UserSerializer(data=request.DATA)
+    serialized = UserSerializer(data=request.data, context={'request': request})
     if serialized.is_valid():
+        # print(request.data)
+        print("aa")
+        # print(serialized.data)
+        print("bb")
         User.objects.create_user(
-            serialized.init_data['email'],
-            serialized.init_data['username'],
-            serialized.init_data['password']
+            serialized.initial_data['username'],
+            '',
+            serialized.initial_data['password']
         )
-        return Response(serialized.data)
+        return Response("udalo sie")
     else:
-        return Response(serialized._errors)
+        return Response("nie udalo")
 
 @api_view(['GET'])
 def apiOverview(request):
@@ -66,9 +70,7 @@ def bookDetail(request,pk):
 # @permission_classes([IsAuthenticated])
 def bookCreate(request):
     serializer = BookSerializer(data = request.data)
-    print('aa')
     if serializer.is_valid():
-        print('bbb')
         serializer.save()
     return Response(serializer.data)
 
