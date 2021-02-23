@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path('', views.apiOverview, name = "api-overview"),
     path('register/', views.create_auth, name = "create_auth"),
+    path('change-password/', views.changePassword, name = "changePassword"),
     path('book-list/', views.bookList, name = "book-list"),
     path('book-detail/<str:pk>', views.bookDetail, name = "book-detail"),
     path('book-create/', views.bookCreate, name = "book-create"),

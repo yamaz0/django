@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from rest_framework.response import Response
 from books.serializers import BookSerializer, UserBookSerializer
 from books.models import Book, UserBook
-from users.serializers import UserSerializer
+from users.serializers import UserSerializer, ChangePasswordSerializer
 from django.contrib.auth.models import User
 # Create your views here.
 
@@ -14,10 +14,6 @@ from django.contrib.auth.models import User
 def create_auth(request):
     serialized = UserSerializer(data=request.data, context={'request': request})
     if serialized.is_valid():
-        # print(request.data)
-        print("aa")
-        # print(serialized.data)
-        print("bb")
         User.objects.create_user(
             serialized.initial_data['username'],
             '',
@@ -26,6 +22,24 @@ def create_auth(request):
         return Response("udalo sie")
     else:
         return Response("nie udalo")
+
+@api_view(['POST'])
+def changePassword(request):
+    # serialized = ChangePasswordSerializer(data=request.data, context={'request': request})
+    user = request.user
+    serializer = ChangePasswordSerializer(data=request.data)
+
+    if serializer.is_valid():
+        # Check old password
+        old_password = serializer.data.get("old_password")
+        if not user.check_password(old_password):
+            return Response(False)
+        # set_password also hashes the password that the user will get
+        user.set_password(serializer.data.get("new_password"))
+        user.save()
+        return Response(True)
+
+    return Response(False)
 
 @api_view(['GET'])
 def apiOverview(request):
