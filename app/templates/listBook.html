@@ -4,6 +4,7 @@
 <h1>Books</h1>
 
 <a href="http://localhost:8000/createBook.html">AddBook</a>
+<a href="http://localhost:8000/map.html">Map</a>
 
 <ul>
     <div id="data-rows"></div>
@@ -31,15 +32,18 @@ function bookList()
                 <li>${data[book].genre}</li>
                 <li>${data[book].rate}</li>
 
+                {% if user.is_superuser %}
                 <button name="pk" value=${data[book].id}>Modify</button>
+                {% endif %}
                 </form>
 
-                {% if user.is_authenticated %}
-                <button name="add" onclick = "" >AddToBookcase</button>
-                {% endif %}
 
                 {% if user.is_superuser %}
                 <button name="pk" onclick = "bookDelete(${data[book].id})" value=${data[book].id}>Delete</button>
+                {% endif %}
+
+                {% if user.is_authenticated %}
+                <button name="add" onclick = "" >AddToBookcase</button>
                 {% endif %}
                 </br></br></br>`
             }
