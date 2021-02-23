@@ -1,10 +1,13 @@
 {% extends 'index.html' %}
 {% block content %}
 
-<a href="http://localhost:8000/createBook.html">AddBook</a>
-<a href="http://localhost:8000/map.html">Map</a>
+<!--<a href="http://localhost:8000/createBook.html">AddBook</a>-->
+<!--<a href="http://localhost:8000/map.html">Map</a>-->
+<button name="login" onclick = 'window.location.href = "http://localhost:8000/createBook.html"' >AddBook</button>
+<button name="login" onclick = 'window.location.href = "http://localhost:8000/map.html"' >Map</button>
 {% if not user.is_authenticated %}
-<a href="http://localhost:8000/register.html">Register</a>
+<!--<a href="http://localhost:8000/register.html">Register</a>-->
+<button name="login" onclick = 'window.location.href = "http://localhost:8000/register.html"' >Register</button>
 {% endif %}
 
 <h1>Books</h1>
