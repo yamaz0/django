@@ -1,10 +1,14 @@
 {% extends 'index.html' %}
 {% block content %}
 
-<h1>Books</h1>
-
 <a href="http://localhost:8000/createBook.html">AddBook</a>
 <a href="http://localhost:8000/map.html">Map</a>
+{% if not user.is_authenticated %}
+<a href="http://localhost:8000/register.html">Register</a>
+{% endif %}
+
+<h1>Books</h1>
+
 
 <ul>
     <div id="data-rows"></div>
