@@ -10,6 +10,7 @@
 
 <script>
 bookList()
+
 function bookList()
 {
     var content = document.getElementById("data-rows")
@@ -24,19 +25,16 @@ function bookList()
             for(var book in data)
             {
                 item += `
-
-                <li>${data[book].book.title}</li>
-                <li>${data[book].book.author}</li>
-                <li>${data[book].book.genre}</li>
+                <li id="title${data[book].id}" value = "${data[book].book.title}">${data[book].book.title}</li>
+                <li id="author${data[book].id}" value = "${data[book].book.author}">${data[book].book.author}</li>
+                <li id="genre${data[book].id}" value = "${data[book].book.genre}">${data[book].book.genre}</li>
                 <li>${data[book].book.rate}</li>
-                <li>${data[book].userRate}</li>
-                <li>${data[book].read}</li>
-
-
+                <li id="userRate${data[book].id}" value = "${data[book].userRate}">${data[book].userRate}</li>
+                <li id="read${data[book].id}" data-value = "${data[book].read}">${data[book].read}</li>
 
                 {% if user.is_authenticated %}
                 <button name="pk" onclick = "bookDelete(${data[book].id})" value=${data[book].id}>Delete</button>
-                <button name="read" onclick = "" >Read/Unread</button>
+                <button name="read" onclick = "userBookUpdate(${data[book].id})" >Read/Unread</button>
                 {% endif %}
                 </br></br></br>`
             }
@@ -77,10 +75,53 @@ function bookDelete(id)
     .then(function(response)
     {
         console.log('Response:', response)
+        location.reload();
     })
-    location.reload();
 }
 
+function userBookUpdate(id)
+{
+    var csrftoken = getCookie('csrftoken');
+    console.log('form submitted')
+
+    var url = "http://localhost:8000/api/userBook-update/" + id + ""
+
+    var read = document.getElementById("read"+id).dataset.value
+    var userRate = document.getElementById("userRate"+id).value
+    var title = document.getElementById("title"+id).value
+    var genre = document.getElementById("genre"+id).value
+    var author = document.getElementById("author"+id).value
+
+    console.log(document.getElementById("read"+id))
+
+    console.log(read)
+    if(read == "false")
+    read = "true"
+    else
+    read = "false"
+    console.log(read)
+
+    fetch(url, {
+        method:'POST',
+        headers:{'Content-type':'application/json',
+              'X-CSRFToken':csrftoken
+          },
+        body:JSON.stringify({
+        'user':{'username': 'a'},
+        'book': {
+            'title': title,
+            'author': author
+        },
+        'userRate': userRate,
+        'read':read
+        })
+     })
+    .then(function(response)
+    {
+        console.log('Response:', response)
+        location.reload();
+    })
+}
 
 </script>
 

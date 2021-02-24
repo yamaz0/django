@@ -183,10 +183,12 @@ def userBookCreate(request):
 @permission_classes([IsAuthenticated])
 def userBookUpdate(request, pk):
     user = request.user
-    userBook = UserBook.objects.get(id=pk).filter(user = user)
+    userBook = UserBook.objects.get(id=pk)
+    # book = Book.objects.get(title=)
     serializer = UserBookSerializer(instance=userBook, data=request.data, context={'request': request})
     if serializer.is_valid():
         serializer.save()
+        print('true')
     return Response(serializer.data)
 
 @api_view(['POST'])
@@ -194,8 +196,8 @@ def userBookUpdate(request, pk):
 @permission_classes([IsAuthenticated])
 def userBookDelete(request, pk):
     user = request.user
-    userBook = UserBook.objects.get(id=pk).filter(user = user)
-    userBook.detele()
+    userBook = UserBook.objects.get(id=pk)
+    userBook.delete()
     return Response('Item succsesfully delete!')
 
 
