@@ -1,18 +1,7 @@
 {% extends 'index.html' %}
 {% block content %}
 
-<!--<a href="http://localhost:8000/createBook.html">AddBook</a>-->
-<!--<a href="http://localhost:8000/map.html">Map</a>-->
-<button name="login" onclick = 'window.location.href = "http://localhost:8000/createBook.html"' >AddBook</button>
-<button name="login" onclick = 'window.location.href = "http://localhost:8000/map.html"' >Map</button>
-{% if not user.is_authenticated %}
-<!--<a href="http://localhost:8000/register.html">Register</a>-->
-<button name="login" onclick = 'window.location.href = "http://localhost:8000/register.html"' >Register</button>
-{%else%}
-<button name="login" onclick = 'window.location.href = "http://localhost:8000/bookcase.html"' >bookcase</button>
-{% endif %}
-
-<h1>Books</h1>
+<h1>Users books</h1>
 
 
 <ul>
@@ -24,7 +13,7 @@ bookList()
 function bookList()
 {
     var content = document.getElementById("data-rows")
-    var url = 'http://localhost:8000/api/book-list/'
+    var url = 'http://localhost:8000/api/userBook-list/'
 
     fetch(url)
     .then((resp) => resp.json())
@@ -35,24 +24,19 @@ function bookList()
             for(var book in data)
             {
                 item += `
-                <form action="/modifyBook.html" method="get">
-                <li>${data[book].title}</li>
-                <li>${data[book].author}</li>
-                <li>${data[book].genre}</li>
-                <li>${data[book].rate}</li>
 
-                {% if user.is_superuser %}
-                <button name="pk" value=${data[book].id}>Modify</button>
-                {% endif %}
-                </form>
+                <li>${data[book].book.title}</li>
+                <li>${data[book].book.author}</li>
+                <li>${data[book].book.genre}</li>
+                <li>${data[book].book.rate}</li>
+                <li>${data[book].userRate}</li>
+                <li>${data[book].read}</li>
 
 
-                {% if user.is_superuser %}
-                <button name="pk" onclick = "bookDelete(${data[book].id})" value=${data[book].id}>Delete</button>
-                {% endif %}
 
                 {% if user.is_authenticated %}
-                <button name="add" onclick = "" >AddToBookcase</button>
+                <button name="pk" onclick = "bookDelete(${data[book].id})" value=${data[book].id}>Delete</button>
+                <button name="read" onclick = "" >Read/Unread</button>
                 {% endif %}
                 </br></br></br>`
             }
@@ -82,7 +66,7 @@ function bookDelete(id)
     var csrftoken = getCookie('csrftoken');
     console.log('delete clicked')
 
-    var url = "http://localhost:8000/api/book-delete/" + id + ""
+    var url = "http://localhost:8000/api/userBook-delete/" + id + ""
 
     fetch(url, {
         method:'POST',

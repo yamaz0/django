@@ -15,6 +15,9 @@ from django.http import JsonResponse
 def index(request):
     return render(request, 'listBook.html')
 
+def indexBookcase(request):
+    return render(request, 'bookcase.html')
+
 def map(request):
     return render(request, 'map.html')
 

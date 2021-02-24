@@ -37,7 +37,7 @@ class Book(models.Model):
 #Ksiazki uzytkownika w biblioteczce
 class UserBook(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, blank=True, null=True)
     userRate = models.IntegerField(default=0)
     read = models.BooleanField(default=False)
 
