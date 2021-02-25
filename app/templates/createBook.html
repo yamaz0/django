@@ -43,7 +43,6 @@ function bookCreate()
         var title = document.getElementsByName("title")[0].value
         var genre = document.getElementsByName("genre")[0].value
         var author = document.getElementsByName("author")[0].value
-        var rate = document.getElementsByName("rate")[0].value
 
         fetch(url, {
             method:'POST',
@@ -54,8 +53,7 @@ function bookCreate()
               'id':'0',
               'title':title,
               'genre':genre,
-              'author':author,
-              'rate':rate
+              'author':author
             })
          })
         .then(function(response)

@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
 from books.serializers import BookSerializer, UserBookSerializer
 from books.models import Book, UserBook
 from users.serializers import UserSerializer, ChangePasswordSerializer
 from django.contrib.auth.models import User
+from django.db.models import Avg
 # Create your views here.
 
 @api_view(['POST'])
@@ -80,8 +81,8 @@ def bookDetail(request,pk):
     return Response(serializer.data)
 
 @api_view(['POST'])
-# @authentication_classes([SessionAuthentication, BasicAuthentication])
-# @permission_classes([IsAuthenticated])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
 def bookCreate(request):
     serializer = BookSerializer(data = request.data)
     if serializer.is_valid():
@@ -90,10 +91,10 @@ def bookCreate(request):
 
 @api_view(['POST'])
 @authentication_classes([SessionAuthentication, BasicAuthentication])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAdminUser])
 def bookUpdate(request, pk):
-    books = Book.objects.get(id=pk)
-    serializer = BookSerializer(instance=books, data=request.data)
+    book = Book.objects.get(id=pk)
+    serializer = BookSerializer(instance=book, data=request.data)
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
@@ -186,9 +187,15 @@ def userBookUpdate(request, pk):
     userBook = UserBook.objects.get(id=pk)
     # book = Book.objects.get(title=)
     serializer = UserBookSerializer(instance=userBook, data=request.data, context={'request': request})
+
+
     if serializer.is_valid():
         serializer.save()
-        print('true')
+        b = Book.objects.get(id=userBook.book.id)
+        r = UserBook.objects.filter(user = user,book = b).aggregate(Avg('userRate'))
+        b.rate = r['userRate__avg']
+        b.save()
+        print(Book.objects.get(id=userBook.book.id).rate)
     return Response(serializer.data)
 
 @api_view(['POST'])

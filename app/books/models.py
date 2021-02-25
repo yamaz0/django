@@ -17,6 +17,15 @@ class genreEnum(models.TextChoices):
     WESTERNS = 'Westerns'
     DYSTOPIAN = 'Dystopian'
     CONTEMPORARY = 'Contemporary'
+
+class rateEnum(models.TextChoices):
+    NONE = '0'
+    ONE = '1'
+    TWO = '2'
+    THREE = '3'
+    FOUR = '4'
+    FIVE = '5'
+
 # Create your models here.
 class Book(models.Model):
     title = models.CharField(max_length = 250)
@@ -38,7 +47,11 @@ class Book(models.Model):
 class UserBook(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     book = models.ForeignKey(Book, on_delete=models.CASCADE, blank=True, null=True)
-    userRate = models.IntegerField(default=0)
+    userRate = models.CharField(
+        max_length=255,
+        choices=rateEnum.choices,
+        default=rateEnum.NONE,
+    )
     read = models.BooleanField(default=False)
 
 def __str__(self):

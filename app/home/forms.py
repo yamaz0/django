@@ -13,7 +13,7 @@ class RegisterForm(UserCreationForm):
 class BookCreateForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ['title', 'genre', 'author', 'rate']
+        fields = ['title', 'genre', 'author']
 
 class BookForm(forms.ModelForm):
     # title = forms.CharField(label='title', max_length=100)
@@ -28,7 +28,6 @@ class BookForm(forms.ModelForm):
         self.initial['title'] = book['title']
         self.initial['genre'] = book['genre']
         self.initial['author'] = book['author']
-        self.initial['rate'] = book['rate']
         # self.title = forms.CharField(label='title', max_length=100, initial=book['title'])
         # self.genre = forms.CharField(label='genre', max_length=100, initial=book['genre'])
         # self.author = forms.CharField(label='author', max_length=100, initial=book['author'])

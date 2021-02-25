@@ -20,6 +20,42 @@
 </ul>
 
 <script>
+
+
+function userBookAdd(id)
+{
+    var csrftoken = getCookie('csrftoken');
+
+
+    var url = "http://localhost:8000/api/userBook-create/"
+
+    var read = false
+    var userRate = 0
+    var title = document.getElementById("title"+id).dataset.value
+    var genre = document.getElementById("genre"+id).value
+    var author = document.getElementById("author"+id).value
+    console.log(title)
+    fetch(url, {
+        method:'POST',
+        headers:{'Content-type':'application/json',
+              'X-CSRFToken':csrftoken
+          },
+        body:JSON.stringify({
+        'user':{'username': '{{user}}'},
+        'book': {
+            'title': title,
+            'author': author
+        },
+        'userRate': userRate,
+        'read':read
+        })
+     })
+    .then(function(response)
+    {
+        console.log('Response:', response)
+    })
+}
+
 bookList()
 function bookList()
 {
@@ -36,10 +72,12 @@ function bookList()
             {
                 item += `
                 <form action="/modifyBook.html" method="get">
-                <li>${data[book].title}</li>
-                <li>${data[book].author}</li>
-                <li>${data[book].genre}</li>
-                <li>${data[book].rate}</li>
+                <li id="title${data[book].id}" data-value = "${data[book].title}">Title: ${data[book].title}</li>
+                <li id="author${data[book].id}" data-value = "${data[book].author}">Author: ${data[book].author}</li>
+                <li id="genre${data[book].id}" data-value = "${data[book].genre}">Genre: ${data[book].genre}</li>
+                <li>Rate: ${data[book].rate}</li>
+
+
 
                 {% if user.is_superuser %}
                 <button name="pk" value=${data[book].id}>Modify</button>
@@ -52,7 +90,7 @@ function bookList()
                 {% endif %}
 
                 {% if user.is_authenticated %}
-                <button name="add" onclick = "" >AddToBookcase</button>
+                <button name="add" onclick = "userBookAdd(${data[book].id})" >AddToBookcase</button>
                 {% endif %}
                 </br></br></br>`
             }
