@@ -192,7 +192,7 @@ def userBookUpdate(request, pk):
     if serializer.is_valid():
         serializer.save()
         b = Book.objects.get(id=userBook.book.id)
-        r = UserBook.objects.filter(user = user,book = b).aggregate(Avg('userRate'))
+        r = UserBook.objects.filter(book = b).aggregate(Avg('userRate'))
         b.rate = r['userRate__avg']
         b.save()
         print(Book.objects.get(id=userBook.book.id).rate)
