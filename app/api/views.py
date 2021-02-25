@@ -75,6 +75,14 @@ def bookList(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
+def bookSearch(request,searchTitle):
+    # searchTitle = request.GET.get('title')
+    print(searchTitle)
+    books = Book.objects.filter(title = searchTitle)
+    serializer = BookSerializer(books, many = True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
 def bookDetail(request,pk):
     books = Book.objects.get(id=pk)
     serializer = BookSerializer(books, many = False)

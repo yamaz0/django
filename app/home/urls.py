@@ -3,6 +3,7 @@ from .views import index, modify, create, register, map, changePassword,indexBoo
 from django.contrib.auth.views import LoginView, LogoutView
 htmlpatterns = [
     path('', index, name="index"),
+    path('search.html', index, name="search"),
     path('modifyBook.html', modify, name="modify"),
     path('register.html', register, name="register"),
     path('map.html', map, name="map"),

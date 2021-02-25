@@ -6,6 +6,7 @@ urlpatterns = [
     path('register/', views.create_auth, name = "create_auth"),
     path('change-password/', views.changePassword, name = "changePassword"),
     path('book-list/', views.bookList, name = "book-list"),
+    path('book-search/<str:searchTitle>', views.bookSearch, name = "book-list"),
     path('book-detail/<str:pk>', views.bookDetail, name = "book-detail"),
     path('book-create/', views.bookCreate, name = "book-create"),
     path('book-update/<str:pk>', views.bookUpdate, name = "book-update"),
