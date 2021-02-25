@@ -99,7 +99,7 @@ def bookCreate(request):
 
 @api_view(['POST'])
 @authentication_classes([SessionAuthentication, BasicAuthentication])
-@permission_classes([IsAdminUser])
+@permission_classes([IsAuthenticated])
 def bookUpdate(request, pk):
     book = Book.objects.get(id=pk)
     serializer = BookSerializer(instance=book, data=request.data)

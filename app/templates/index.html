@@ -9,12 +9,14 @@
 <body>
 {% if user.is_authenticated %}
 <button name="logout" onclick = "onLogoutClick()" >Logout</button>
+{{user}}
 <button name="changePassword" onclick = "onChangePasswordClick()" >changePassword</button>
 {% else %}
 <button name="login" onclick = "onLoginClick()" >Login</button>
 {% endif %}
 <button name="home" onclick = 'window.location.href = "http://localhost:8000"' >Home</button>
 <!--window.location.href = "http://localhost:8000"-->
+
 {% block content %}
 {% endblock %}
 

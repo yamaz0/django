@@ -45,7 +45,6 @@ function bookUpdate()
         var title = document.getElementsByName("title")[0].value
         var genre = document.getElementsByName("genre")[0].value
         var author = document.getElementsByName("author")[0].value
-        var rate = document.getElementsByName("rate")[0].value
 
         fetch(url, {
             method:'POST',
@@ -56,13 +55,13 @@ function bookUpdate()
               'id':id,
               'title':title,
               'genre':genre,
-              'author':author,
-              'rate':rate
+              'author':author
             })
          })
         .then(function(response)
         {
             console.log('Response:', response)
+            window.location.href = "http://localhost:8000"
         })
     })
 }
