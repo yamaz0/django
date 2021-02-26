@@ -7,17 +7,18 @@ Aplikacja webowa z książkami, użytkownikami i kolekcją książek.
 ## Technologies
 
 Użyte technologie:
-•	Python
-•	Django framework
-•	Django REST framework
-•	HTML
-•	JavaScript
-•	SQLite
-•	Leaflet
-•	GitHub
+*	Python
+*	Django framework
+*	Django REST framework
+*	HTML
+*	JavaScript
+*	SQLite
+*	Leaflet
+*	GitHub
 
 ## Requirements
-
+pip freeze:
+```
 asgiref==3.3.1
 certifi==2020.12.5
 cffi==1.14.5
@@ -50,7 +51,7 @@ requests-toolbelt==0.9.1
 six==1.15.0
 sqlparse==0.4.1
 urllib3==1.26.3
-
+```
 ## Authors
 
 Radosław Koch
