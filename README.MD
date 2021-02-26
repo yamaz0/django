@@ -56,20 +56,21 @@ urllib3==1.26.3
 ## Endpoints
 
 Register api/register/\
-Change password api/change-password/\
+Change password api/change-password/
+
 
 Books list api/book-list/\
 Book detail api/book-detail/id/\
 Book create api/book-create/\
-Book update api/book-update/id/\
-Book delete api/book-delete/id/\
+Book update api/book-update/id/ \
+Book delete api/book-delete/id/ 
 
-UserBook list api/userBook-list/\
-UserBook detail api/userBook-detail/id/\
+
+UserBook list api/userBook-list/ \
+UserBook detail api/userBook-detail/id/ \
 UserBook create api/userBook-create/\
 UserBook update api/userBook-update/id/ \
-UserBook delete api/userBook-delete/id/ \
-
+UserBook delete api/userBook-delete/id/ 
 ## Authors
 
 Radosław Koch\
