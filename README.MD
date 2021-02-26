@@ -54,6 +54,6 @@ urllib3==1.26.3
 ```
 ## Authors
 
-Radosław Koch
+Radosław Koch\
 Patryk Szulc
 
