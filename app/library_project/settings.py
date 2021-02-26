@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'books.apps.BooksConfig',
     'api.apps.ApiConfig',
     'home.apps.HomeConfig',
-    'requests',
 ]
 
 MIDDLEWARE = [

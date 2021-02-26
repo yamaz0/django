@@ -1,12 +1,5 @@
 from django.db import models
-#from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User, Group
-# class Author(models.Model):
-#     firstName = models.CharField(max_length=250)
-#     lastName = models.CharField(max_length=250)
-#
-#     def __str__(self):
-#         return ("{first_name} {last_name}").format(first_name=self.firstName, last_name=self.lastName)
 
 class genreEnum(models.TextChoices):
     FANTASY = 'Fantasy'

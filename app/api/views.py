@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from django.http import JsonResponse
+
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
@@ -45,18 +44,14 @@ def changePassword(request):
 @api_view(['GET'])
 def apiOverview(request):
     api_urls={
-        'Books list':'/book-list/',
+        'Register':'/register/',
+        'Change password':'/change-password/',
+
         'Books list':'/book-list/',
         'Book detail':'/book-detail/<str:pk>/',
         'Book create':'/book-create/',
         'Book update':'/book-update/<str:pk>/',
         'Book delete':'/book-delete/<str:pk>/',
-
-        # 'Author list':'/author-list/',
-        # 'Author detail':'/author-detail/<str:pk>/',
-        # 'Author create':'/author-create/',
-        # 'Author update':'/author-update/<str:pk>/',
-        # 'Author delete':'/author-delete/<str:pk>/',
 
         'UserBook list':'/userBook-list/',
         'UserBook detail':'/userBook-detail/<str:pk>/',
@@ -65,7 +60,6 @@ def apiOverview(request):
         'UserBook delete':'/userBook-delete/<str:pk>/',
     }
     return Response(api_urls)
-
 
 #Book
 @api_view(['GET'])
