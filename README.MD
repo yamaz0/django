@@ -59,16 +59,16 @@ Register api/register/\
 Change password api/change-password/\
 
 Books list api/book-list/\
-Book detail api/book-detail/<str:pk\>/\
+Book detail api/book-detail/```\<```str:pk```\>```/\
 Book create api/book-create/\
-Book update api/book-update/<str:pk\>/\
-Book delete api/book-delete/<str:pk\>/\
+Book update api/book-update/```\<```str:pk```\>```/\
+Book delete api/book-delete/```\<```str:pk```\>```/\
 
 UserBook list api/userBook-list/\
-UserBook detail api/userBook-detail/<str:pk\>/\
+UserBook detail api/userBook-detail/```\<```str:pk```\>```/\
 UserBook create api/userBook-create/\
-UserBook update api/userBook-update/<str:pk\>/ \
-UserBook delete api/userBook-delete/<str:pk\>/ \
+UserBook update api/userBook-update/```\<```str:pk```\>```/ \
+UserBook delete api/userBook-delete/```\<```str:pk```\>```/ \
 
 ## Authors
 
