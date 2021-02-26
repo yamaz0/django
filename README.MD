@@ -52,6 +52,24 @@ six==1.15.0
 sqlparse==0.4.1
 urllib3==1.26.3
 ```
+
+## Endpoints
+
+Register /register/\
+Change password /change-password/\
+
+Books list /book-list/\
+Book detail /book-detail/<str:pk>/\
+Book create /book-create/\
+Book update /book-update/<str:pk>/\
+Book delete /book-delete/<str:pk>/\
+
+UserBook list /userBook-list/\
+UserBook detail /userBook-detail/<str:pk>/\
+UserBook create /userBook-create/\
+UserBook update /userBook-update/<str:pk>/\
+UserBook delete /userBook-delete/<str:pk>/\
+
 ## Authors
 
 Radosław Koch\
