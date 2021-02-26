@@ -55,20 +55,20 @@ urllib3==1.26.3
 
 ## Endpoints
 
-Register /register/\
-Change password /change-password/\
+Register api/register/\
+Change password api/change-password/\
 
-Books list /book-list/\
-Book detail /book-detail/<str:pk>/\
-Book create /book-create/\
-Book update /book-update/<str:pk>/\
-Book delete /book-delete/<str:pk>/\
+Books list api/book-list/\
+Book detail api/book-detail/<str:pk\>/\
+Book create api/book-create/\
+Book update api/book-update/<str:pk\>/\
+Book delete api/book-delete/<str:pk\>/\
 
-UserBook list /userBook-list/\
-UserBook detail /userBook-detail/<str:pk>/\
-UserBook create /userBook-create/\
-UserBook update /userBook-update/<str:pk>/\
-UserBook delete /userBook-delete/<str:pk>/\
+UserBook list api/userBook-list/\
+UserBook detail api/userBook-detail/<str:pk\>/\
+UserBook create api/userBook-create/\
+UserBook update api/userBook-update/<str:pk\>/ \
+UserBook delete api/userBook-delete/<str:pk\>/ \
 
 ## Authors
 
